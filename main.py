@@ -3,6 +3,7 @@ from database import students, professors
 from typing import Optional, List
 from models import Student, professor, Feedback
 from nlp_utils import analyze_sentiment, smart_search
+# from unit_testing.test_main import client
 
 app = FastAPI(
     title = "AI Powered Student Management API",
@@ -64,7 +65,7 @@ def delete_student(id: int):
         "message": "Student deleted successfully"
     }
 
-@app.get("/search")
+@app.get("/filter")
 def search_student(query:str):
     # result = [s for s in students if name.lower() in s.name.lower()]
     result = smart_search(students, query)
@@ -76,8 +77,8 @@ def search_student(query:str):
         )
     
     return{
-        "Count":len(result),
-        "Serach result":result
+        "count":len(result),
+        "search_result":result
     }
 
 
